@@ -1,0 +1,37 @@
+.button{
+    -fx-background-color: #17202A;
+    -fx-border-radius: 30px;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-border-radius: 20px;
+}
+.playerCoins {
+    -fx-background-color: transparent ;
+
+}
+
+.button:hover{
+    -fx-background-color: #566573;
+    -fx-scale-y: 1.1;
+}
+.button:focused{
+    -fx-background-color: #ff277a;
+
+}
+
+#back{
+    -fx-background-color: #450057;
+    -fx-text-fill: white;
+}
+.home {
+    -fx-background-color: #450057;
+
+    /*
+    -fx-background-image: url("home.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1920 1080;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+
+     */
+}
