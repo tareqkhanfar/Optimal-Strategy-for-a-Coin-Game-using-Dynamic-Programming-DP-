@@ -19,10 +19,7 @@
 
 }
 
-#back{
-    -fx-background-color: #450057;
-    -fx-text-fill: white;
-}
+
 .home {
     -fx-background-color: #450057;
 
@@ -34,4 +31,26 @@
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 
      */
+}
+#P1 {
+    -fx-border-radius: 10px;
+    -fx-background-color: #001870;
+    -fx-font-size: 30px;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+    /*-fx-padding: 60px;
+
+     */
+
+}
+#P2 {
+    -fx-border-radius: 10px;
+    -fx-background-color: #001870;
+    -fx-font-size: 30px;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+    /*-fx-padding: 60px;
+
+     */
+
 }

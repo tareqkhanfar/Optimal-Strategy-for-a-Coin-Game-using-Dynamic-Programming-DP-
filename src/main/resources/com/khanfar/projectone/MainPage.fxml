@@ -10,13 +10,6 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="970.0" styleClass="home" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.khanfar.FrontEnd.GamePageConroller">
-   <top>
-      <Label alignment="CENTER" lineSpacing="2.0" prefHeight="82.0" prefWidth="795.0" text="Game Stratagy" textAlignment="CENTER" textFill="#9e0606" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Monotype Corsiva" size="53.0" />
-         </font>
-      </Label>
-   </top>
    <center>
       <ScrollPane prefHeight="345.0" prefWidth="609.0" BorderPane.alignment="CENTER">
          <content>
@@ -28,9 +21,6 @@
       <ScrollPane prefHeight="472.0" prefWidth="161.0" BorderPane.alignment="CENTER">
          <content>
             <VBox fx:id="playerOne" prefHeight="539.0" prefWidth="145.0" styleClass="playerCoins">
-               <children>
-                  <Label prefHeight="57.0" prefWidth="145.0" styleClass="playerLabels" text="Player One" />
-               </children>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></VBox>
@@ -38,12 +28,9 @@
       </ScrollPane>
    </left>
    <right>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane prefHeight="472.0" prefWidth="161.0" BorderPane.alignment="CENTER">
          <content>
-            <VBox fx:id="player2" prefHeight="474.0" prefWidth="184.0" styleClass="playerCoins">
-               <children>
-                  <Label prefHeight="56.0" prefWidth="186.0" styleClass="playerLabels" text="Player Two" />
-               </children></VBox>
+            <VBox fx:id="player2" prefHeight="593.0" prefWidth="145.0" styleClass="playerCoins" />
          </content>
       </ScrollPane>
    </right>
@@ -56,4 +43,21 @@
          </children>
       </HBox>
    </bottom>
+   <top>
+      <HBox prefHeight="62.0" prefWidth="166.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="title" alignment="CENTER" lineSpacing="2.0" prefHeight="79.0" prefWidth="957.0" text="Optimal Strategy for a Game using DP" textAlignment="CENTER" textFill="#ae8bff">
+               <font>
+                  <Font name="Monotype Corsiva" size="54.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </top>
 </BorderPane>

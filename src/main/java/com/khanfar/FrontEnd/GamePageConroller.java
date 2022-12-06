@@ -1,11 +1,14 @@
 package com.khanfar.FrontEnd;
 
+import javafx.animation.ScaleTransition;
+import javafx.animation.StrokeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -13,8 +16,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.LinkedList;
@@ -28,6 +33,8 @@ public class GamePageConroller implements Initializable {
 
     @FXML
     private Button start;
+    @FXML
+    private Label title;
     @FXML
     private HBox main;
 
@@ -53,6 +60,16 @@ public class GamePageConroller implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ScaleTransition scaleTransition = new ScaleTransition();
+        scaleTransition.setDuration(Duration.seconds(1));
+        scaleTransition.setNode(title);
+        scaleTransition.setByY(.1);
+        scaleTransition.setByX(.1);
+        scaleTransition.setCycleCount(-1);
+        scaleTransition.setAutoReverse(true);
+        scaleTransition.play();
+
+
         main.setAlignment(Pos.CENTER);
         main.setSpacing(30);
         int a[] = {20, 1,30,2,5,3 ,4 ,23, 23, 5,35, 235, 235,53} ;
@@ -78,6 +95,7 @@ public class GamePageConroller implements Initializable {
         for (int i = 0 ; i < a.length ; i++) {
             Circle circle = new Circle();
             Text text = new Text(a[i]+"");
+            text.setFont(new Font(15));
             text.setBoundsType(TextBoundsType.VISUAL);
             circle.setRadius(45);
             circle.setFill(Color.SALMON);
@@ -86,6 +104,12 @@ public class GamePageConroller implements Initializable {
             stack.getChildren().addAll(circle, text);
             main.getChildren().addAll(stack);
         }
+        Label playerOneLabel = new Label("Player One") , playerTwoLabel = new Label("Player Two") ;
+        playerOneLabel.setId("P1");
+        playerTwoLabel.setId("P2");
+        playerOne.getChildren().addAll(playerOneLabel);
+        player2.getChildren().addAll(playerTwoLabel);
+
 
 
 
@@ -214,11 +238,21 @@ public class GamePageConroller implements Initializable {
 
     public  void createCircleForPlayerOne(int coin) {
         Circle circle = new Circle();
+
+
         Text text = new Text(coin+"");
         text.setBoundsType(TextBoundsType.VISUAL);
         circle.setRadius(45);
         circle.setFill(Color.CADETBLUE);
         circle.setStroke(Color.BLACK);
+        StrokeTransition strokeTransition = new StrokeTransition();
+        strokeTransition.setDuration(Duration.seconds(0.5));
+        strokeTransition.setShape(circle);
+        strokeTransition.setFromValue(Color.RED);
+        strokeTransition.setToValue(Color.TRANSPARENT);
+        strokeTransition.setCycleCount(-1);
+        strokeTransition.setAutoReverse(true);
+        strokeTransition.play();
         StackPane stack = new StackPane();
         stack.getChildren().addAll(circle, text);
         playerOne.getChildren().addAll(stack);
@@ -230,6 +264,14 @@ public class GamePageConroller implements Initializable {
         circle.setRadius(45);
         circle.setFill(Color.CADETBLUE);
         circle.setStroke(Color.BLACK);
+        StrokeTransition strokeTransition = new StrokeTransition();
+        strokeTransition.setDuration(Duration.seconds(0.5));
+        strokeTransition.setShape(circle);
+        strokeTransition.setFromValue(Color.RED);
+        strokeTransition.setToValue(Color.TRANSPARENT);
+        strokeTransition.setCycleCount(-1);
+        strokeTransition.setAutoReverse(true);
+        strokeTransition.play();
         StackPane stack = new StackPane();
         stack.getChildren().addAll(circle, text);
         player2.getChildren().addAll(stack);
@@ -241,6 +283,14 @@ public class GamePageConroller implements Initializable {
         //circle.setRadius(45);
         rectangle.setFill(Color.RED);
         rectangle.setStroke(Color.BLACK);
+        StrokeTransition strokeTransition = new StrokeTransition();
+        strokeTransition.setDuration(Duration.seconds(0.5));
+        strokeTransition.setShape(rectangle);
+        strokeTransition.setFromValue(Color.BLACK);
+        strokeTransition.setToValue(Color.TRANSPARENT);
+        strokeTransition.setCycleCount(-1);
+        strokeTransition.setAutoReverse(true);
+        strokeTransition.play();
         StackPane stack = new StackPane();
         stack.getChildren().addAll(rectangle, text);
         playerOne.getChildren().addAll(stack);
@@ -252,6 +302,14 @@ public class GamePageConroller implements Initializable {
         //circle.setRadius(45);
         rectangle.setFill(Color.RED);
         rectangle.setStroke(Color.BLACK);
+        StrokeTransition strokeTransition = new StrokeTransition();
+        strokeTransition.setDuration(Duration.seconds(0.5));
+        strokeTransition.setShape(rectangle);
+        strokeTransition.setFromValue(Color.BLACK);
+        strokeTransition.setToValue(Color.TRANSPARENT);
+        strokeTransition.setCycleCount(-1);
+        strokeTransition.setAutoReverse(true);
+        strokeTransition.play();
         StackPane stack = new StackPane();
         stack.getChildren().addAll(rectangle, text);
         player2.getChildren().addAll(stack);
