@@ -8,9 +8,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+    public static  Stage stage ;
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("MainPage.fxml"));
+    public void start(Stage stagee) throws IOException {
+        this.stage = stagee ;
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("startPage.fxml"));
         String  style= HelloApplication.class.getResource("Css/style.css").toExternalForm();
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(style);

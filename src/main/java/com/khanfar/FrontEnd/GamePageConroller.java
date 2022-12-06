@@ -1,15 +1,20 @@
 package com.khanfar.FrontEnd;
 
+import com.khanfar.projectone.HelloApplication;
+import com.khanfar.projectone.HelloController;
 import javafx.animation.ScaleTransition;
 import javafx.animation.StrokeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -20,8 +25,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -52,7 +59,12 @@ public class GamePageConroller implements Initializable {
 
 
     @FXML
-    void backOnAction(ActionEvent event) {
+    void backOnAction(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("startPage.fxml"));
+        String  style= HelloApplication.class.getResource("Css/style.css").toExternalForm();
+        Scene scene = new Scene(fxmlLoader.load() , 500 , 500) ;
+        HelloApplication.stage.setScene(scene);
+        HelloApplication.stage.getScene().getStylesheets().add(style);
 
     }
     @FXML
@@ -87,7 +99,7 @@ public class GamePageConroller implements Initializable {
 
     }
 
-    int ab[] = { 1,3,3,15,1,1} ;
+    int ab[]  ;
 
     @FXML
     void startOnAction(ActionEvent event) {
@@ -123,12 +135,24 @@ public class GamePageConroller implements Initializable {
 
     @FXML
     void tableOnAction(ActionEvent event) {
+        Stage stage = new Stage() ;
 
+        TextArea textArea = new TextArea() ;
+        for (int i = 0 ; i < ab.length ; i++) {
+            for (int j = 0 ; j < ab.length ; j++) {
+                textArea.appendText(tableC[i][j].max+"   ");
+            }
+            textArea.appendText("\n");
+
+        }
+        stage.setScene(new Scene(textArea , 400 , 400));
+        stage.show();
     }
     StackPane circleArray[] ;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ab = HelloController.coinsArray ;
         ScaleTransition scaleTransition = new ScaleTransition();
         scaleTransition.setDuration(Duration.seconds(1));
         scaleTransition.setNode(title);
@@ -357,8 +381,8 @@ return table ;
         stack.getChildren().addAll(rectangle, text);
         player2.getChildren().addAll(stack);
     }
-    int c = 0 , k = 0 , m = ab.length -1;
-    int i = 0 , j= ab.length - 1;
+    int c = 0 , k = 0 , m = HelloController.coinsArray.length -1;
+    int i = 0 , j= HelloController.coinsArray.length - 1;
 
     public void SimulationManual (int []coins , Coins table[][]) throws InterruptedException {
 

@@ -6,10 +6,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane fx:id="splashPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="splashPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="620.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.khanfar.projectone.HelloController">
    <children>
-      <TextField layoutX="7.0" layoutY="189.0" prefHeight="36.0" prefWidth="602.0" />
-      <Button layoutX="206.0" layoutY="288.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="175.0" text="Start Game" />
+      <TextField fx:id="coins" layoutX="7.0" layoutY="189.0" prefHeight="36.0" prefWidth="602.0" />
+      <Button layoutX="227.0" layoutY="288.0" mnemonicParsing="false" onAction="#sartOnAction" prefHeight="42.0" prefWidth="154.0" text="Start Game" />
       <Label layoutX="185.0" layoutY="119.0" prefHeight="42.0" prefWidth="264.0" text="Enter The Numbers Seprated By Space" />
    </children>
 </AnchorPane>
