@@ -2,6 +2,7 @@ package com.khanfar.FrontEnd;
 
 import javafx.animation.ScaleTransition;
 import javafx.animation.StrokeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,14 +44,80 @@ public class GamePageConroller implements Initializable {
 
     @FXML
     private VBox playerOne;
+    @FXML
+    private Button RunManual;
+
+    Coins tableC[][];
+
+
 
     @FXML
     void backOnAction(ActionEvent event) {
 
     }
+    @FXML
+    void manualOnAction(ActionEvent event) {
+
+       // circleArray = new StackPane[ab.length];
+
+        Thread start = new Thread(
+
+                new Runnable() {
+
+                    @Override
+                    public void run() {
+
+
+                        try {
+
+                            SimulationManual( ab , tableC);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                }
+        ) ;
+
+        //main = new HBox();
+
+
+        start.start();
+
+
+    }
+
+    int ab[] = { 1,3,3,15,1,1} ;
 
     @FXML
     void startOnAction(ActionEvent event) {
+
+        Thread start = new Thread(
+
+                new Runnable() {
+
+                    @Override
+                    public void run() {
+
+
+                        try {
+
+                            SimaulationAuto(tableC , ab);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                }
+        ) ;
+
+        //main = new HBox();
+
+
+        start.start();
+
+
+
 
     }
 
@@ -58,6 +125,8 @@ public class GamePageConroller implements Initializable {
     void tableOnAction(ActionEvent event) {
 
     }
+    StackPane circleArray[] ;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ScaleTransition scaleTransition = new ScaleTransition();
@@ -68,33 +137,18 @@ public class GamePageConroller implements Initializable {
         scaleTransition.setCycleCount(-1);
         scaleTransition.setAutoReverse(true);
         scaleTransition.play();
-
-
         main.setAlignment(Pos.CENTER);
         main.setSpacing(30);
-        int a[] = {20, 1,30,2,5,3 ,4 ,23, 23, 5,35, 235, 235,53} ;
+        circleArray = new StackPane[ab.length];
+        try {
+            tableC = Algorithim(ab);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-        Thread start = new Thread(
-
-                    new Runnable() {
-
-                        @Override
-                        public void run() {
-                            int a[] = {20, 1,30,2,5,3 ,4 ,23, 23, 5,35, 235, 235,53} ;
-
-                            try {
-                                Algorithim(a) ;
-                            } catch (InterruptedException e) {
-                                throw new RuntimeException(e);
-                            }
-
-                        }
-                    }
-            ) ;
-        start.start();
-        for (int i = 0 ; i < a.length ; i++) {
-            Circle circle = new Circle();
-            Text text = new Text(a[i]+"");
+        for (int i = 0 ; i < ab.length ; i++) {
+            Circle circle= new Circle();
+            Text text = new Text(ab[i]+"");
             text.setFont(new Font(15));
             text.setBoundsType(TextBoundsType.VISUAL);
             circle.setRadius(45);
@@ -102,6 +156,7 @@ public class GamePageConroller implements Initializable {
             circle.setStroke(Color.BLACK);
             StackPane stack = new StackPane();
             stack.getChildren().addAll(circle, text);
+            circleArray[i] = stack ;
             main.getChildren().addAll(stack);
         }
         Label playerOneLabel = new Label("Player One") , playerTwoLabel = new Label("Player Two") ;
@@ -110,13 +165,9 @@ public class GamePageConroller implements Initializable {
         playerOne.getChildren().addAll(playerOneLabel);
         player2.getChildren().addAll(playerTwoLabel);
 
-
-
-
-
     }
 
-    private void Algorithim(int coins[]) throws InterruptedException {
+    private Coins[][] Algorithim(int coins[]) throws InterruptedException {
         Coins table[][] = new Coins[coins.length][coins.length] ;
         for (int i = 0 ; i < coins.length ; i++) {
 
@@ -187,94 +238,86 @@ public class GamePageConroller implements Initializable {
             System.out.println();
         }
 
-        i = 0 ; j= coins.length - 1;
 
-        int c = 0 ;
-        while (c != coins.length ) {
-            if (c % 2 == 0) {
-                playerOne.add(table[i][j].currentCoin) ;
-                int finalI = i;
-                int finalJ = j;
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        createCircleForPlayerOne(table[finalI][finalJ].currentCoin);
-                    }
-                });
-                System.out.println("I : "+i+" j : "+j);
-            }
-            else {
-                int finalI = i;
-                int finalJ = j;
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        createCircleForPlayerTwo(table[finalI][finalJ].currentCoin);
-                    }
-                });
-                playerTwo.add(table[i][j].currentCoin) ;
-            }
-            int tempI = table[i][j].currentI ;
-            int tempJ = table[i][j].currentJ ;
-            i = tempI ;
-            j = tempJ ;
-            c++ ;
-            Thread.sleep(800);
-        }
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                FinalAnswerForPlayerOne(table[0][coins.length - 1 ] .max);
-                FinalAnswerForPlayerTwo(table[0][coins.length - 1 ] .min);
+return table ;
+    }
 
-            }
-        });
 
-        System.out.println("Coins for Player One " + playerOne.toString() );
-        System.out.println("Coins for Player Two " + playerTwo.toString() );
-
+    private boolean checkIfFirstOrLast(int currentCoin, int first, int last) {
+       if (currentCoin == first) {
+           return true ;
+       }
+       return  false ;
 
     }
 
-    public  void createCircleForPlayerOne(int coin) {
-        Circle circle = new Circle();
+    public  void createCircleForPlayerOne(int coin , int index) {
+       // Circle circle = new Circle();
 
+       StackPane stackPane =  circleArray[index] ;
 
-        Text text = new Text(coin+"");
+       /* Text text = new Text(coin+"");
         text.setBoundsType(TextBoundsType.VISUAL);
         circle.setRadius(45);
         circle.setFill(Color.CADETBLUE);
         circle.setStroke(Color.BLACK);
+
+        */
         StrokeTransition strokeTransition = new StrokeTransition();
         strokeTransition.setDuration(Duration.seconds(0.5));
-        strokeTransition.setShape(circle);
+        ((Circle)stackPane.getChildren().get(0)).setFill(Color.PINK);
+        strokeTransition.setShape((Circle)stackPane.getChildren().get(0));
         strokeTransition.setFromValue(Color.RED);
         strokeTransition.setToValue(Color.TRANSPARENT);
         strokeTransition.setCycleCount(-1);
         strokeTransition.setAutoReverse(true);
         strokeTransition.play();
+        TranslateTransition translateTransition = new TranslateTransition() ;
+        translateTransition.setDuration(Duration.millis(1500));
+        translateTransition.setNode(stackPane);
+        translateTransition.setToY(-150);
+        translateTransition.play();
+
+        /*
         StackPane stack = new StackPane();
         stack.getChildren().addAll(circle, text);
-        playerOne.getChildren().addAll(stack);
+       // playerOne.getChildren().addAll(stack);
+
+         */
     }
-    public  void createCircleForPlayerTwo(int coin) {
-        Circle circle = new Circle();
+    public  void createCircleForPlayerTwo(int coin , int index) {
+       // Circle circle = new Circle();
+        StackPane stackPane =  circleArray[index] ;
+/*
         Text text = new Text(coin+"");
         text.setBoundsType(TextBoundsType.VISUAL);
         circle.setRadius(45);
         circle.setFill(Color.CADETBLUE);
         circle.setStroke(Color.BLACK);
+
+ */
+         //StackPane stack = new StackPane();
+
         StrokeTransition strokeTransition = new StrokeTransition();
         strokeTransition.setDuration(Duration.seconds(0.5));
-        strokeTransition.setShape(circle);
+        ((Circle)stackPane.getChildren().get(0)).setFill(Color.LIGHTSKYBLUE);
+
+        strokeTransition.setShape((Circle)stackPane.getChildren().get(0));
         strokeTransition.setFromValue(Color.RED);
         strokeTransition.setToValue(Color.TRANSPARENT);
         strokeTransition.setCycleCount(-1);
         strokeTransition.setAutoReverse(true);
         strokeTransition.play();
-        StackPane stack = new StackPane();
-        stack.getChildren().addAll(circle, text);
-        player2.getChildren().addAll(stack);
+        TranslateTransition translateTransition = new TranslateTransition() ;
+        translateTransition.setDuration(Duration.millis(1500));
+        translateTransition.setNode(stackPane);
+        translateTransition.setToY(150);
+        translateTransition.play();
+      // StackPane stack = new StackPane();
+
+        //stack.getChildren().addAll(circle, text);
+        //player2.getChildren().addAll(stack);
+
     }
     public  void FinalAnswerForPlayerOne(int coin) {
         Rectangle rectangle = new Rectangle(100 ,100);
@@ -313,5 +356,187 @@ public class GamePageConroller implements Initializable {
         StackPane stack = new StackPane();
         stack.getChildren().addAll(rectangle, text);
         player2.getChildren().addAll(stack);
+    }
+    int c = 0 , k = 0 , m = ab.length -1;
+    int i = 0 , j= ab.length - 1;
+
+    public void SimulationManual (int []coins , Coins table[][]) throws InterruptedException {
+
+
+        if (c != coins.length ) {
+            //Thread.sleep(2000);
+
+            if (c % 2 == 0) {
+                //playerOne.add(table[i][j].currentCoin) ;
+                int finalI = i;
+                int finalJ = j;
+                if (checkIfFirstOrLast(table[i][j].currentCoin , coins[k] , coins[m]) ){
+
+
+                    int finalK = k;
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            createCircleForPlayerOne(table[finalI][finalJ].currentCoin , finalK);
+                        }
+                    });
+                    k++ ;
+
+
+                }
+                else {
+                    int finalM = m;
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            createCircleForPlayerOne(table[finalI][finalJ].currentCoin , finalM);
+                        }
+                    });
+                    m--;
+
+                }
+
+
+                System.out.println("I : "+i+" j : "+j);
+            }
+            else {
+                int finalI = i;
+                int finalJ = j;
+                if (checkIfFirstOrLast(table[i][j].currentCoin , coins[k] , coins[m]) ) {
+                    int finalK1 = k;
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            createCircleForPlayerTwo(table[finalI][finalJ].currentCoin, finalK1);
+                        }
+
+                    });
+                    k++;
+
+                }
+                else {
+                    int finalM1 = m;
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            createCircleForPlayerTwo(table[finalI][finalJ].currentCoin, finalM1);
+                        }
+
+                    });
+                    m-- ;
+
+                }
+
+               // playerTwo.add(table[i][j].currentCoin) ;
+            }
+            int tempI = table[i][j].currentI ;
+            int tempJ = table[i][j].currentJ ;
+            i = tempI ;
+            j = tempJ ;
+            c++ ;
+        }else {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    FinalAnswerForPlayerOne(table[0][coins.length - 1 ] .max);
+                    FinalAnswerForPlayerTwo(table[0][coins.length - 1 ] .min);
+
+                }
+            });
+        }
+
+
+      //  System.out.println("Coins for Player One " + playerOne.toString() );
+       // System.out.println("Coins for Player Two " + playerTwo.toString() );
+
+
+    }
+    public void SimaulationAuto(Coins table[][] , int coins[]) throws InterruptedException {
+        int c = 0 , k = 0 , m = coins.length - 1;
+      int  i = 0 , j= coins.length - 1;
+
+        while (c != coins.length ) {
+            Thread.sleep(2000);
+
+            if (c % 2 == 0) {
+               // playerOne.add(table[i][j].currentCoin) ;
+                int finalI = i;
+                int finalJ = j;
+                if (checkIfFirstOrLast(table[i][j].currentCoin , coins[k] , coins[m]) ){
+
+
+                    int finalK = k;
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            createCircleForPlayerOne(table[finalI][finalJ].currentCoin , finalK);
+                        }
+                    });
+                    k++ ;
+
+
+                }
+                else {
+                    int finalM = m;
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            createCircleForPlayerOne(table[finalI][finalJ].currentCoin , finalM);
+                        }
+                    });
+                    m--;
+
+                }
+
+
+                System.out.println("I : "+i+" j : "+j);
+            }
+            else {
+                int finalI = i;
+                int finalJ = j;
+                if (checkIfFirstOrLast(table[i][j].currentCoin , coins[k] , coins[m]) ) {
+                    int finalK1 = k;
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            createCircleForPlayerTwo(table[finalI][finalJ].currentCoin, finalK1);
+                        }
+
+                    });
+                    k++;
+
+                }
+                else {
+                    int finalM1 = m;
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            createCircleForPlayerTwo(table[finalI][finalJ].currentCoin, finalM1);
+                        }
+
+                    });
+                    m-- ;
+
+                }
+
+              //  playerTwo.add(table[i][j].currentCoin) ;
+            }
+            int tempI = table[i][j].currentI ;
+            int tempJ = table[i][j].currentJ ;
+            i = tempI ;
+            j = tempJ ;
+            c++ ;
+        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                FinalAnswerForPlayerOne(table[0][coins.length - 1 ] .max);
+                FinalAnswerForPlayerTwo(table[0][coins.length - 1 ] .min);
+
+            }
+        });
+
+       // System.out.println("Coins for Player One " + playerOne.toString() );
+      // System.out.println("Coins for Player Two " + playerTwo.toString() );
     }
 }

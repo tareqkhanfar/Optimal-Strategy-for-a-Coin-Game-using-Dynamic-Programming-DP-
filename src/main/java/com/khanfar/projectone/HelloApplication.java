@@ -14,7 +14,6 @@ public class HelloApplication extends Application {
         String  style= HelloApplication.class.getResource("Css/style.css").toExternalForm();
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(style);
-
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();

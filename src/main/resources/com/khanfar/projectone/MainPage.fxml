@@ -38,8 +38,9 @@
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="back" mnemonicParsing="false" onAction="#backOnAction" prefHeight="78.0" prefWidth="132.0" text="Back" />
-            <Button fx:id="start" mnemonicParsing="false" onAction="#startOnAction" prefHeight="78.0" prefWidth="132.0" text="Start" />
+            <Button fx:id="start" mnemonicParsing="false" onAction="#startOnAction" prefHeight="78.0" prefWidth="132.0" text="Start - Auto" />
             <Button fx:id="showTable" mnemonicParsing="false" onAction="#tableOnAction" prefHeight="78.0" prefWidth="132.0" text="Show Table" />
+            <Button fx:id="RunManual" mnemonicParsing="false" onAction="#manualOnAction" prefHeight="78.0" prefWidth="132.0" text="Run - Manual" />
          </children>
       </HBox>
    </bottom>
