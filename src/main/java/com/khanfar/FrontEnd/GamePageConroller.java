@@ -175,7 +175,7 @@ public class GamePageConroller implements Initializable {
             Text text = new Text(ab[i]+"");
             text.setFont(new Font(15));
             text.setBoundsType(TextBoundsType.VISUAL);
-            circle.setRadius(45);
+            circle.setRadius(35);
             circle.setFill(Color.SALMON);
             circle.setStroke(Color.BLACK);
             StackPane stack = new StackPane();
@@ -198,7 +198,7 @@ public class GamePageConroller implements Initializable {
             for (int j = 0 ; j < coins.length ; j++) {
                 table[i][j] = new Coins() ;
                 if (i==j) {
-                    table[i][j] = new Coins(coins[i] , 0, coins[i] ,0,0);
+                    table[i][j] = new Coins(coins[i] , 0, i ,0,0);
                 }
             }
         }
@@ -230,12 +230,16 @@ public class GamePageConroller implements Initializable {
                     if (CurrentMax == coins[i]) {
                         currentI = i+1;
                         currentJ = j;
+                        table[i][j] = new Coins(result, resultMin , i , currentI,currentJ);
+
                     }
                     else if (CurrentMax == coins[j]) {
                         currentI = i ;
                         currentJ = j-1 ;
+                        table[i][j] = new Coins(result, resultMin , j , currentI,currentJ);
+
                     }
-                    table[i][j] = new Coins(result, resultMin , CurrentMax , currentI,currentJ);
+                    //table[i][j] = new Coins(result, resultMin , CurrentMax , currentI,currentJ);
 
                 }
                 // System.out.println("I : " + i + "J : " +j);
@@ -244,10 +248,10 @@ public class GamePageConroller implements Initializable {
 
             else if (result == MaxValue) {
                 resultMin = table[i + 1][j].max;
-                table[i][j] = new Coins(result, resultMin , coins[i] , i+1 , j );
+                table[i][j] = new Coins(result, resultMin , i , i+1 , j );
             } else if (result == MaxValue2) {
                 resultMin = table[i][j - 1].max;
-                table[i][j] = new Coins(result, resultMin , coins[j] , i , j-1);
+                table[i][j] = new Coins(result, resultMin , j , i , j-1);
 
             }
 
@@ -275,7 +279,7 @@ return table ;
 
     }
 
-    public  void createCircleForPlayerOne(int coin , int index) {
+    public  void createCircleForPlayerOne(int index) {
        // Circle circle = new Circle();
 
        StackPane stackPane =  circleArray[index] ;
@@ -309,7 +313,7 @@ return table ;
 
          */
     }
-    public  void createCircleForPlayerTwo(int coin , int index) {
+    public  void createCircleForPlayerTwo( int index) {
        // Circle circle = new Circle();
         StackPane stackPane =  circleArray[index] ;
 /*
@@ -394,65 +398,34 @@ return table ;
                 //playerOne.add(table[i][j].currentCoin) ;
                 int finalI = i;
                 int finalJ = j;
-                if (checkIfFirstOrLast(table[i][j].currentCoin , coins[k] , coins[m]) ){
 
-
-                    int finalK = k;
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            createCircleForPlayerOne(table[finalI][finalJ].currentCoin , finalK);
+                            createCircleForPlayerOne(table[finalI][finalJ].currentCoin );
                         }
                     });
-                    k++ ;
-
-
-                }
-                else {
-                    int finalM = m;
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            createCircleForPlayerOne(table[finalI][finalJ].currentCoin , finalM);
-                        }
-                    });
-                    m--;
-
-                }
-
-
                 System.out.println("I : "+i+" j : "+j);
+
+
             }
+
             else {
                 int finalI = i;
                 int finalJ = j;
-                if (checkIfFirstOrLast(table[i][j].currentCoin , coins[k] , coins[m]) ) {
-                    int finalK1 = k;
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            createCircleForPlayerTwo(table[finalI][finalJ].currentCoin, finalK1);
+                            createCircleForPlayerTwo(table[finalI][finalJ].currentCoin);
                         }
 
                     });
-                    k++;
 
-                }
-                else {
-                    int finalM1 = m;
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            createCircleForPlayerTwo(table[finalI][finalJ].currentCoin, finalM1);
-                        }
-
-                    });
-                    m-- ;
 
                 }
 
                // playerTwo.add(table[i][j].currentCoin) ;
-            }
+
             int tempI = table[i][j].currentI ;
             int tempJ = table[i][j].currentJ ;
             i = tempI ;
@@ -486,65 +459,34 @@ return table ;
                // playerOne.add(table[i][j].currentCoin) ;
                 int finalI = i;
                 int finalJ = j;
-                if (checkIfFirstOrLast(table[i][j].currentCoin , coins[k] , coins[m]) ){
 
-
-                    int finalK = k;
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            createCircleForPlayerOne(table[finalI][finalJ].currentCoin , finalK);
+                            createCircleForPlayerOne(table[finalI][finalJ].currentCoin );
                         }
                     });
-                    k++ ;
-
-
-                }
-                else {
-                    int finalM = m;
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            createCircleForPlayerOne(table[finalI][finalJ].currentCoin , finalM);
-                        }
-                    });
-                    m--;
-
-                }
-
 
                 System.out.println("I : "+i+" j : "+j);
-            }
+
+                }
+
             else {
                 int finalI = i;
                 int finalJ = j;
-                if (checkIfFirstOrLast(table[i][j].currentCoin , coins[k] , coins[m]) ) {
-                    int finalK1 = k;
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            createCircleForPlayerTwo(table[finalI][finalJ].currentCoin, finalK1);
+                            createCircleForPlayerTwo(table[finalI][finalJ].currentCoin);
                         }
 
                     });
-                    k++;
 
                 }
-                else {
-                    int finalM1 = m;
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            createCircleForPlayerTwo(table[finalI][finalJ].currentCoin, finalM1);
-                        }
 
-                    });
-                    m-- ;
-
-                }
 
               //  playerTwo.add(table[i][j].currentCoin) ;
-            }
+
             int tempI = table[i][j].currentI ;
             int tempJ = table[i][j].currentJ ;
             i = tempI ;
@@ -556,11 +498,8 @@ return table ;
             public void run() {
                 FinalAnswerForPlayerOne(table[0][coins.length - 1 ] .max);
                 FinalAnswerForPlayerTwo(table[0][coins.length - 1 ] .min);
-
             }
         });
 
-       // System.out.println("Coins for Player One " + playerOne.toString() );
-      // System.out.println("Coins for Player Two " + playerTwo.toString() );
     }
 }
