@@ -194,22 +194,23 @@ public class GamePageConroller implements Initializable {
     private Coins[][] Algorithim(int coins[]) throws InterruptedException {
         Coins table[][] = new Coins[coins.length][coins.length] ;
         for (int i = 0 ; i < coins.length ; i++) {
-
             for (int j = 0 ; j < coins.length ; j++) {
                 table[i][j] = new Coins() ;
                 if (i==j) {
+                    // if i = j . that mean there exist one coin in array , so the indexes is 0 and 0
                     table[i][j] = new Coins(coins[i] , 0, i ,0,0);
                 }
             }
         }
 
         int i = 0 , j = 1 ,counter =1;
-        LinkedList<Integer> playerOne = new LinkedList<Integer>() , playerTwo = new LinkedList<Integer>() ;
+      // LinkedList<Integer> playerOne = new LinkedList<Integer>() , playerTwo = new LinkedList<Integer>() ;
         while (counter != coins.length-1){
 
-            if (j==coins.length) {
+            if (j==coins.length) { // to check if reack the end of array or not , if end we will reStart again and increment the subset of array
                 i=0;
-                counter++ ;
+                counter++ ; // increment counter each loop , to stop when number of loop = length(Coin) i .e
+                // for i = 0 ;  i < coint,length ^2 ; i++  >> O(n^2)
                 j =counter ;
                 // System.out.println();
             }
@@ -219,23 +220,26 @@ public class GamePageConroller implements Initializable {
             int secondMin = table[i][j - 1].min;
             int MaxValue = coins[i] + firstMin;
             int MaxValue2 = coins[j] + secondMin;
-            int result = Math.max(MaxValue, MaxValue2);
+            int result = Math.max(MaxValue, MaxValue2); // compare between constOne with CostTwo --> The Result is MAX_Cost
             int resultMin = 0 , resultMin2 = 0;
+            // this code to check case is happane when the costOne and cost2 are equals , therefore we not the coin that which obtain maxCost
+            // Example : the CostOne (7 , 11) and costTwo (7 ,3)
             if (MaxValue == MaxValue2) {
+                // to check if the third altenate are equal or not to know the real coin
                 resultMin = table[i + 1][j].max;
                 resultMin2 = table[i][j-1].max ;
                 if (resultMin == resultMin2) {
                     int CurrentMax = Math.max(coins[i] , coins[j]) ;
                     int currentI = -1 , currentJ = -1 ;
                     if (CurrentMax == coins[i]) {
-                        currentI = i+1;
-                        currentJ = j;
+                        currentI = i+1;// to store the indexes of cell that which getMaxCost , to iterate after finish , to know the coin
+                        currentJ = j; // to store the indexes of cell that which getMaxCost , to iterate after finish , to know the coin
                         table[i][j] = new Coins(result, resultMin , i , currentI,currentJ);
 
                     }
                     else if (CurrentMax == coins[j]) {
-                        currentI = i ;
-                        currentJ = j-1 ;
+                        currentI = i ;// to store the indexes of cell that which getMaxCost , to iterate after finish , to know the coin
+                        currentJ = j-1 ;// to store the indexes of cell that which getMaxCost , to iterate after finish , to know the coin
                         table[i][j] = new Coins(result, resultMin , j , currentI,currentJ);
 
                     }
@@ -246,10 +250,13 @@ public class GamePageConroller implements Initializable {
                 // table[i][j] = new Coins(result, resultMin , Math.max(coins[i] , coins[j]) , 0,0);
             }
 
+            // if the reault equal maxValue == > then the new Optimal soulution from the cell Table [i+1][j]
             else if (result == MaxValue) {
                 resultMin = table[i + 1][j].max;
                 table[i][j] = new Coins(result, resultMin , i , i+1 , j );
             } else if (result == MaxValue2) {
+                // if the reault equal maxValue == > then the new Optimal soulution from the cell Table [i][j-1]
+
                 resultMin = table[i][j - 1].max;
                 table[i][j] = new Coins(result, resultMin , j , i , j-1);
 
@@ -271,13 +278,7 @@ return table ;
     }
 
 
-    private boolean checkIfFirstOrLast(int currentCoin, int first, int last) {
-       if (currentCoin == first) {
-           return true ;
-       }
-       return  false ;
 
-    }
 
     public  void createCircleForPlayerOne(int index) {
        // Circle circle = new Circle();
@@ -449,12 +450,11 @@ return table ;
 
     }
     public void SimaulationAuto(Coins table[][] , int coins[]) throws InterruptedException {
-        int c = 0 , k = 0 , m = coins.length - 1;
+        int c = 0 ;
       int  i = 0 , j= coins.length - 1;
 
-        while (c != coins.length ) {
-            Thread.sleep(2000);
-
+         for (c= 0 ; c < coins.length ; c++){
+             Thread.sleep(2000);
             if (c % 2 == 0) {
                // playerOne.add(table[i][j].currentCoin) ;
                 int finalI = i;
@@ -491,7 +491,7 @@ return table ;
             int tempJ = table[i][j].currentJ ;
             i = tempI ;
             j = tempJ ;
-            c++ ;
+          //  c++ ;
         }
         Platform.runLater(new Runnable() {
             @Override
