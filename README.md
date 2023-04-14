@@ -16,4 +16,3 @@ either the first or the last coin in the row. We will pick the one which results
 ![Screenshot (168)](https://user-images.githubusercontent.com/98056148/232036072-aec3c5a5-062c-4046-844e-39caa3e9bab5.png)
 ![Screenshot (167)](https://user-images.githubusercontent.com/98056148/232036074-18e072d0-afe5-4011-b5b4-99bc8163efd1.png)
 ![Screenshot (166)](https://user-images.githubusercontent.com/98056148/232036076-9d52b087-62b5-45e8-820a-337f3fbd4723.png)
-![Screenshot (165)](https://user-images.githubusercontent.com/98056148/232036078-74f1885f-acd0-43f4-8630-f825da36b39a.png)
