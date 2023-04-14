@@ -1,3 +1,6 @@
+
+
+
 # Algorithim_Project_1_DP
 
 Problem Description
@@ -8,6 +11,8 @@ problem is to determine the maximum possible amount of money a player can defini
 Problem Solution
 In this problem, we will try to collect maximum amount without underestimating the opponent. We can choose
 either the first or the last coin in the row. We will pick the one which results in giving us lesser amound to ensure that we can definitely win this much of amount irrespective of opponent’s moves.
+
+https://user-images.githubusercontent.com/98056148/232036536-4741ecd4-18c3-4093-8ec6-10309485c95a.mp4
 
 ![Screenshot (172)](https://user-images.githubusercontent.com/98056148/232036064-08423546-f653-4df0-ad57-8a3b44cc14ae.png)
 ![Screenshot (171)](https://user-images.githubusercontent.com/98056148/232036067-c3c2dc8f-d119-4a42-9c33-7c3a46ab57cc.png)
